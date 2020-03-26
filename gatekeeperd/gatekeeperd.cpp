@@ -43,6 +43,8 @@
 #include <hidl/HidlSupport.h>
 #include <android/hardware/gatekeeper/1.0/IGatekeeper.h>
 
+#define USE_SOFT_GATEKEEPER 0
+
 using android::sp;
 using android::hardware::gatekeeper::V1_0::IGatekeeper;
 using android::hardware::gatekeeper::V1_0::GatekeeperStatusCode;
@@ -58,7 +60,11 @@ class GateKeeperProxy : public BnGateKeeperService {
 public:
     GateKeeperProxy() {
         clear_state_if_needed_done = false;
+#if USE_SOFT_GATEKEEPER
+        hw_device = nullptr;
+#else
         hw_device = IGatekeeper::getService();
+#endif
 
         if (hw_device == nullptr) {
             ALOGW("falling back to software GateKeeper");
