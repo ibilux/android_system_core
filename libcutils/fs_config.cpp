@@ -190,9 +190,12 @@ static const struct fs_path_config android_files[] = {
                                            CAP_MASK_LONG(CAP_SETGID),
                                               "system/bin/run-as" },
 
+#if 0
     // Support FIFO scheduling mode in SurfaceFlinger.
     { 00755, AID_SYSTEM,    AID_GRAPHICS,  CAP_MASK_LONG(CAP_SYS_NICE),
                                               "system/bin/surfaceflinger" },
+#endif
+
     // generic defaults
     { 00755, AID_ROOT,      AID_ROOT,      0, "bin/*" },
     { 00640, AID_ROOT,      AID_SHELL,     0, "fstab.*" },
